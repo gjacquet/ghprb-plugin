@@ -1,18 +1,10 @@
 package org.jenkinsci.plugins.ghprb.manager.impl.downstreambuilds;
 
 import static org.fest.assertions.Assertions.assertThat;
-
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doReturn;
 
-import com.cloudbees.plugins.flow.BuildFlow;
-import com.cloudbees.plugins.flow.FlowRun;
-import com.cloudbees.plugins.flow.JobInvocation;
-import com.coravy.hudson.plugins.github.GithubProjectProperty;
-
 import java.util.Iterator;
-
-import net.sf.json.JSONObject;
 
 import org.jenkinsci.plugins.ghprb.Ghprb;
 import org.jenkinsci.plugins.ghprb.GhprbITBaseTestCase;
@@ -21,13 +13,17 @@ import org.jenkinsci.plugins.ghprb.GhprbTrigger;
 import org.jenkinsci.plugins.ghprb.manager.GhprbBuildManager;
 import org.jenkinsci.plugins.ghprb.manager.factory.GhprbBuildManagerFactoryUtil;
 import org.jenkinsci.plugins.ghprb.rules.JenkinsRuleWithBuildFlow;
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import org.mockito.runners.MockitoJUnitRunner;
+
+import com.cloudbees.plugins.flow.BuildFlow;
+import com.cloudbees.plugins.flow.FlowRun;
+import com.cloudbees.plugins.flow.JobInvocation;
+import com.coravy.hudson.plugins.github.GithubProjectProperty;
+import net.sf.json.JSONObject;
 
 /**
  * @author mdelapenya (Manuel de la Peña)
@@ -109,7 +105,7 @@ public class BuildFlowBuildManagerTest extends GhprbITBaseTestCase {
 
 		GhprbTrigger trigger = new GhprbTrigger("user", "user", "",
 			"*/1 * * * *", "retest this please", false, false, false, false,
-			false, null, null, false, null, null, null);
+			false, null, null, false, null, null, null, null, null);
 
 		given(commitPointer.getSha()).willReturn("sha");
 		JSONObject jsonObject = GhprbTestUtil.provideConfiguration();

@@ -1,29 +1,27 @@
 package org.jenkinsci.plugins.ghprb;
 
-import hudson.model.AbstractBuild;
-import hudson.model.Cause;
-import hudson.model.Result;
-import hudson.model.TaskListener;
-import hudson.model.queue.QueueTaskFuture;
-import hudson.plugins.git.util.BuildData;
-
-import org.apache.commons.io.FileUtils;
-
-import org.jenkinsci.plugins.ghprb.manager.GhprbBuildManager;
-import org.jenkinsci.plugins.ghprb.manager.configuration.JobConfiguration;
-import org.jenkinsci.plugins.ghprb.manager.factory.GhprbBuildManagerFactoryUtil;
-
-import org.kohsuke.github.GHCommitState;
-import org.kohsuke.github.GHIssueState;
-import org.kohsuke.github.GHPullRequest;
-import org.kohsuke.github.GHUser;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.apache.commons.io.FileUtils;
+import org.jenkinsci.plugins.ghprb.manager.GhprbBuildManager;
+import org.jenkinsci.plugins.ghprb.manager.configuration.JobConfiguration;
+import org.jenkinsci.plugins.ghprb.manager.factory.GhprbBuildManagerFactoryUtil;
+import org.kohsuke.github.GHCommitState;
+import org.kohsuke.github.GHIssueState;
+import org.kohsuke.github.GHPullRequest;
+import org.kohsuke.github.GHUser;
+
+import hudson.model.AbstractBuild;
+import hudson.model.Cause;
+import hudson.model.Result;
+import hudson.model.TaskListener;
+import hudson.model.queue.QueueTaskFuture;
+import hudson.plugins.git.util.BuildData;
 
 /**
  * @author janinko
@@ -50,8 +48,8 @@ public class GhprbBuilds {
             sb.append(" Build triggered.");
         }
 
-        GhprbCause cause = new GhprbCause(pr.getHead(), pr.getId(), 
-        		pr.isMergeable(), pr.getTarget(), pr.getSource(), 
+        GhprbCause cause = new GhprbCause(pr.getHead(), pr.getId(),
+        		pr.isMergeable(), pr.getTarget(), pr.getSource(),
         		pr.getAuthorEmail(), pr.getTitle(), pr.getUrl(),
         		triggerSender, commentBody, pr.getCommitAuthor());
 
@@ -122,11 +120,11 @@ public class GhprbBuilds {
         String publishedURL = GhprbTrigger.getDscp().getPublishedURL();
         if (publishedURL != null && !publishedURL.isEmpty()) {
             String commentFilePath = trigger.getCommentFilePath();
-            
+
             if (commentFilePath != null && !commentFilePath.isEmpty()) {
                 try {
                     String scriptFilePathResolved = Ghprb.replaceMacros(build, commentFilePath);
-                    
+
                     String content = FileUtils.readFileToString(new File(scriptFilePathResolved));
                 	msg.append("Build comment file: \n--------------\n");
                     msg.append(content);
@@ -137,7 +135,7 @@ public class GhprbBuilds {
                     e.printStackTrace(listener.getLogger());
                 }
             }
-            
+
             msg.append("\nRefer to this link for build results (access rights to CI server needed): \n");
             msg.append(generateCustomizedMessage(build));
 
@@ -158,7 +156,7 @@ public class GhprbBuilds {
                     ex.printStackTrace(listener.getLogger());
                 }
             }
-        
+
 
             String buildMessage = null;
             if (state == GHCommitState.SUCCESS) {

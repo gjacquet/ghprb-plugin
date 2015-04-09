@@ -1,11 +1,11 @@
 package org.jenkinsci.plugins.ghprb;
 
-import com.coravy.hudson.plugins.github.GithubProjectProperty;
-import com.google.common.collect.Lists;
-
-import hudson.model.FreeStyleProject;
-import hudson.plugins.git.GitSCM;
-import net.sf.json.JSONObject;
+import static com.google.common.collect.Lists.newArrayList;
+import static org.fest.assertions.Assertions.assertThat;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
 
 import org.joda.time.DateTime;
 import org.junit.Before;
@@ -16,12 +16,11 @@ import org.jvnet.hudson.test.JenkinsRule;
 import org.kohsuke.github.GHIssueComment;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static com.google.common.collect.Lists.newArrayList;
-import static org.fest.assertions.Assertions.assertThat;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
+import com.coravy.hudson.plugins.github.GithubProjectProperty;
+import com.google.common.collect.Lists;
+import hudson.model.FreeStyleProject;
+import hudson.plugins.git.GitSCM;
+import net.sf.json.JSONObject;
 
 @RunWith(MockitoJUnitRunner.class)
 public class GhprbIT extends GhprbITBaseTestCase {
@@ -40,7 +39,7 @@ public class GhprbIT extends GhprbITBaseTestCase {
         // GIVEN
         FreeStyleProject project = jenkinsRule.createFreeStyleProject("PRJ");
         GhprbTrigger trigger = new GhprbTrigger(
-                "user", "user", "", "*/1 * * * *", "retest this please", false, false, false, false, false, null, null, false, null, null, null
+                "user", "user", "", "*/1 * * * *", "retest this please", false, false, false, false, false, null, null, false, null, null, null, null, null
         );
         given(commitPointer.getSha()).willReturn("sha");
         JSONObject jsonObject = GhprbTestUtil.provideConfiguration();
@@ -74,7 +73,7 @@ public class GhprbIT extends GhprbITBaseTestCase {
         // GIVEN
         FreeStyleProject project = jenkinsRule.createFreeStyleProject("PRJ");
         GhprbTrigger trigger = new GhprbTrigger(
-                "user", "user", "", "*/1 * * * *", "retest this please", false, false, false, false, false, null, null, false, null, null, null
+                "user", "user", "", "*/1 * * * *", "retest this please", false, false, false, false, false, null, null, false, null, null, null, null, null
         );
         given(commitPointer.getSha()).willReturn("sha").willReturn("sha").willReturn("newOne").willReturn("newOne");
         given(ghPullRequest.getComments()).willReturn(Lists.<GHIssueComment>newArrayList());
@@ -102,7 +101,7 @@ public class GhprbIT extends GhprbITBaseTestCase {
         // GIVEN
         FreeStyleProject project = jenkinsRule.createFreeStyleProject("PRJ");
         GhprbTrigger trigger = new GhprbTrigger(
-                "user", "user", "", "*/1 * * * *", "retest this please", false, false, false, false, false, null, null, false, null, null, null
+                "user", "user", "", "*/1 * * * *", "retest this please", false, false, false, false, false, null, null, false, null, null, null, null, null
         );
 
         given(commitPointer.getSha()).willReturn("sha");

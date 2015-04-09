@@ -1,16 +1,8 @@
 package org.jenkinsci.plugins.ghprb.manager.impl;
 
 import static org.fest.assertions.Assertions.assertThat;
-
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doReturn;
-
-import com.coravy.hudson.plugins.github.GithubProjectProperty;
-
-import hudson.matrix.MatrixBuild;
-import hudson.matrix.MatrixProject;
-
-import net.sf.json.JSONObject;
 
 import org.jenkinsci.plugins.ghprb.Ghprb;
 import org.jenkinsci.plugins.ghprb.GhprbITBaseTestCase;
@@ -18,14 +10,17 @@ import org.jenkinsci.plugins.ghprb.GhprbTestUtil;
 import org.jenkinsci.plugins.ghprb.GhprbTrigger;
 import org.jenkinsci.plugins.ghprb.manager.GhprbBuildManager;
 import org.jenkinsci.plugins.ghprb.manager.factory.GhprbBuildManagerFactoryUtil;
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.jvnet.hudson.test.JenkinsRule;
-
 import org.mockito.runners.MockitoJUnitRunner;
+
+import com.coravy.hudson.plugins.github.GithubProjectProperty;
+import hudson.matrix.MatrixBuild;
+import hudson.matrix.MatrixProject;
+import net.sf.json.JSONObject;
 
 /**
  * @author mdelapenya (Manuel de la Peña)
@@ -66,12 +61,12 @@ public class GhprbDefaultBuildManagerTest extends GhprbITBaseTestCase {
 
 		GhprbTrigger trigger = new GhprbTrigger("user", "user", "",
 			"*/1 * * * *", "retest this please", false, false, false, false,
-			false, null, null, false, null, null, null);
+			false, null, null, false, null, null, null, null, null);
 
 		given(commitPointer.getSha()).willReturn("sha");
 
 		JSONObject jsonObject = GhprbTestUtil.provideConfiguration();
-		
+
 
 		jsonObject.put("publishedURL", "defaultPublishedURL");
 		GhprbTrigger.DESCRIPTOR.configure(null, jsonObject);

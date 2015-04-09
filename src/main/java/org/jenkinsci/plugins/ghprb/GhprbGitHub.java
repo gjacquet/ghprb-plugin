@@ -3,6 +3,7 @@ package org.jenkinsci.plugins.ghprb;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import org.kohsuke.github.GHOrganization;
 import org.kohsuke.github.GHUser;
 import org.kohsuke.github.GitHub;
@@ -14,10 +15,19 @@ import org.kohsuke.github.GitHubBuilder;
 public class GhprbGitHub {
 	private static final Logger logger = Logger.getLogger(GhprbGitHub.class.getName());
 	private GitHub gh;
+	private final GhprbTrigger trigger;
+
+	public GhprbGitHub() {
+		this(null);
+	}
+
+	public GhprbGitHub(GhprbTrigger trigger) {
+		this.trigger = trigger;
+	}
 
 	private void connect() throws IOException{
-		String accessToken = GhprbTrigger.getDscp().getAccessToken();
-		String serverAPIUrl = GhprbTrigger.getDscp().getServerAPIUrl();
+		String accessToken = getAccessToken();
+		String serverAPIUrl = getServerAPIUrl();
 		if(accessToken != null && !accessToken.isEmpty()) {
 			try {
 				gh = new GitHubBuilder()
@@ -39,6 +49,28 @@ public class GhprbGitHub {
 						.build();
 			}
 		}
+	}
+
+	private String getAccessToken() {
+		String accessToken;
+		if (trigger != null && trigger.getAccessToken() != null && !trigger.getAccessToken().isEmpty()) {
+			accessToken = trigger.getAccessToken();
+		} else {
+			accessToken = GhprbTrigger.getDscp().getAccessToken();
+		}
+
+		return accessToken;
+	}
+
+	private String getServerAPIUrl() {
+		String serverAPIUrl;
+		if (trigger != null && trigger.getServerAPIUrl() != null && !trigger.getServerAPIUrl().isEmpty()) {
+			serverAPIUrl = trigger.getServerAPIUrl();
+		} else {
+			serverAPIUrl = GhprbTrigger.getDscp().getServerAPIUrl();
+		}
+
+		return serverAPIUrl;
 	}
 
 	public GitHub get() throws IOException{
