@@ -11,7 +11,7 @@
       <f:textbox default="${descriptor.serverAPIUrl}" />
     </f:entry>
     <f:entry title="${%Access Token}" field="accessToken">
-      <f:password default="${descriptor.accessToken} />
+      <f:password />
     </f:entry>
     <f:entry title="${%Success message}" field="msgSuccess">
       <f:textarea default="${descriptor.msgSuccess}"/>
